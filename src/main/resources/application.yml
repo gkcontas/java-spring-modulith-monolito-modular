@@ -1,0 +1,38 @@
+spring:
+  application:
+    name: modular-monolith
+  datasource:
+    url: jdbc:postgresql://localhost:5432/shop
+    username: shop
+    password: shop
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    open-in-view: false
+  flyway:
+    enabled: true
+  task:
+    execution:
+      pool:
+        # The listeners are asynchronous, so this pool is the width of the whole
+        # event-driven part of the system. Leaving it at the default of one would turn
+        # every flow into a queue of one.
+        core-size: 4
+        max-size: 8
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,modulith
+  endpoint:
+    health:
+      show-details: always
+
+logging:
+  level:
+    com.gkcontas.modulith: INFO
+
+server:
+  error:
+    include-message: always
